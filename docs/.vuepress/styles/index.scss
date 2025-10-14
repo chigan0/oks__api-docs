@@ -1,0 +1,67 @@
+// .vuepress/styles/index.scss
+
+// 1. Переопределение цветовой палитры
+:root {
+  --c-brand: #252a41; // Основной тёмно-синий
+  --c-brand-light: #3d4364; // Тёмно-синий при наведении
+  --c-tip: #f6c139; // Акцентный жёлтый для блоков .tip
+  --c-bg: #f7f7fd; // Основной фон страницы (светло-лавандовый)
+  --c-bg-light: #ffffff; // Фон для карточек, как на сайте
+  --c-border: #e0e0e9; // Цвет границ
+  --vp-c-accent: #222445;
+  --vp-c-accent-bg: #222445;
+  --vp-c-accent-hover: #f7f8ff
+  
+  --c-text: #2c3e50;
+  --c-text-light: #474f63;
+
+  // Кнопки
+  --c-button-primary-bg: #252a41;
+  --c-button-primary-text: #ffffff;
+  --c-button-primary-hover-bg: #3d4364;
+
+  --c-button-secondary-bg: #f7f7fd;
+  --c-button-secondary-text: #252a41;
+  --c-button-secondary-border: #252a41;
+  --c-button-secondary-hover-bg: #e8e9f2;
+
+  // Шрифты, если требуется (опционально, но рекомендуется для полного соответствия)
+  --font-family: 'Manrope', 'Inter', sans-serif;
+}
+
+
+html[data-theme="dark"] .vp-site-logo {
+	filter: invert(1) brightness(1.5);
+}
+
+.vp-hero-action-button{
+	transition: all .3s;
+}
+
+.vp-hero-action-button.primary:hover{
+	color: #252a41 !important;
+}
+
+.vp-hero-action-button.secondary:hover{
+	color: #252a41 !important;
+	border-color: #e8e9f2;
+}
+
+html[data-theme="dark"] {
+	--vp-c-accent: #f7f8ff;
+	--vp-c-accent-bg: #f7f8ff;
+	--back-to-top-c-accent-hover: #eef0ff;
+	--vp-c-accent-hover: #eef0ff;
+}
+
+div[class*="language-"] {
+  background-color: #282b34; // Ваш желаемый цвет фона
+  border-radius: 8px; // Пример скругления углов, как на скриншоте
+}
+
+// Можно также более специфично стилизовать внутренние элементы
+div[class*="language-"] pre,
+div[class*="language-"] code {
+  background-color: transparent !important; // Убираем фон у вложенных элементов, чтобы не перекрывать основной
+  color: #ccc; // Цвет текста по умолчанию
+}
