@@ -4,6 +4,7 @@ import { viteBundler } from '@vuepress/bundler-vite'
 
 export default defineUserConfig({
 	lang: 'ru-RU',
+	base: "/docs/",
 
 	// title: 'OKS API Docs',
 	description: 'OKS API Docs',
