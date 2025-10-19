@@ -4,6 +4,7 @@ title: OKS Group API
 heroImage: images/svgviewer-output.svg
 heroText:
 tagline: API для работы с недвижимостью
+description: Полное руководство для разработчиков по интеграции с OKS Group API. Аутентификация, работа с каталогом, бронирование и справочник по эндпоинтам.
 
 actions:
   - text: Начало работы
