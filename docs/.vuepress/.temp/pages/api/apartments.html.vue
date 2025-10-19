@@ -1,36 +1,7 @@
-<template><div><h1 id="ресурс-планировки-layouts" tabindex="-1"><a class="header-anchor" href="#ресурс-планировки-layouts"><span>Ресурс: Планировки (Layouts)</span></a></h1>
-<p>Этот ресурс предоставляет доступ к данным о планировках квартир, доступных в рамках определённого жилого комплекса (ЖК).</p>
-<h2 id="получить-список-планировок-для-жк" tabindex="-1"><a class="header-anchor" href="#получить-список-планировок-для-жк"><span>Получить список планировок для ЖК</span></a></h2>
-<p>Возвращает постраничный список всех доступных планировок для конкретного проекта, идентифицированного по его <code v-pre>UUID</code>.</p>
-<ul>
-<li><strong>Method:</strong> <code v-pre>GET</code></li>
-<li><strong>URL:</strong> <code v-pre>/service/layout/list/{project_uuid}</code></li>
-<li><strong>Authentication:</strong> <code v-pre>Bearer Token</code></li>
-</ul>
-<hr>
-<h3 id="параметры-пути-path-parameters" tabindex="-1"><a class="header-anchor" href="#параметры-пути-path-parameters"><span>Параметры пути (Path Parameters)</span></a></h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Параметр</th>
-<th style="text-align:left">Тип</th>
-<th style="text-align:left">Описание</th>
-<th style="text-align:left">Обязательный</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code v-pre>project_uuid</code></td>
-<td style="text-align:left"><code v-pre>UUID</code></td>
-<td style="text-align:left">Уникальный идентификатор проекта, для которого запрашиваются планировки.</td>
-<td style="text-align:left">Да</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h3 id="тело-ответа-200-ok" tabindex="-1"><a class="header-anchor" href="#тело-ответа-200-ok"><span>Тело ответа: <code v-pre>200 OK</code></span></a></h3>
-<p>В случае успешного запроса API возвращает объект <code v-pre>ListResponse</code>, где поле <code v-pre>response</code> содержит массив объектов <code v-pre>Layout</code>.</p>
-<h4 id="объект-listresponse" tabindex="-1"><a class="header-anchor" href="#объект-listresponse"><span>Объект <code v-pre>ListResponse</code></span></a></h4>
+<template><div><h1 id="ресурс-квартиры-layouts" tabindex="-1"><a class="header-anchor" href="#ресурс-квартиры-layouts"><span>Ресурс: Квартиры (Layouts)</span></a></h1>
+<p>Этот документ описывает подробную структуру данных для объекта &quot;Квартира&quot; (или &quot;Планировка&quot;). Эта структура используется во всех эндпоинтах, возвращающих данные о квартирах, включая список (<code v-pre>/service/projects/layouts</code>) и получение по UUID (<code v-pre>/service/projects/layouts/{layout_uuid}</code>).</p>
+<h2 id="структура-объекта-квартира" tabindex="-1"><a class="header-anchor" href="#структура-объекта-квартира"><span>Структура объекта &quot;Квартира&quot;</span></a></h2>
+<p>Основной объект, описывающий квартиру, сгруппированный по логическим блокам для удобства.</p>
 <table>
 <thead>
 <tr>
@@ -41,233 +12,55 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code v-pre>response</code></td>
-<td style="text-align:left"><code v-pre>array</code></td>
-<td style="text-align:left">Массив объектов (в данном случае <code v-pre>Layout</code>).</td>
+<td style="text-align:left"><code v-pre>uuid</code></td>
+<td style="text-align:left"><code v-pre>UUID</code></td>
+<td style="text-align:left">Уникальный идентификатор квартиры.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code v-pre>count</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Общее количество объектов.</td>
+<td style="text-align:left"><code v-pre>projectUuid</code></td>
+<td style="text-align:left"><code v-pre>UUID</code></td>
+<td style="text-align:left">UUID проекта, к которому относится квартира.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code v-pre>pages</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Общее количество страниц.</td>
+<td style="text-align:left"><code v-pre>core</code></td>
+<td style="text-align:left"><code v-pre>object</code></td>
+<td style="text-align:left"><strong>(Блок)</strong> Основные параметры: цена, площадь, комнаты.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code v-pre>current_page</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Номер текущей страницы.</td>
+<td style="text-align:left"><code v-pre>geo</code></td>
+<td style="text-align:left"><code v-pre>object</code></td>
+<td style="text-align:left"><strong>(Блок)</strong> Гео-данные: подъезд, номер квартиры.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>status</code></td>
+<td style="text-align:left"><code v-pre>object</code></td>
+<td style="text-align:left"><strong>(Блок)</strong> Статусы: опубликовано, продано, в рассрочку.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>details</code></td>
+<td style="text-align:left"><code v-pre>object</code></td>
+<td style="text-align:left"><strong>(Блок)</strong> Дополнительные технические детали.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>media</code></td>
+<td style="text-align:left"><code v-pre>object</code></td>
+<td style="text-align:left"><strong>(Блок)</strong> Медиа-ссылки: изображения, PDF.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>company</code></td>
+<td style="text-align:left"><code v-pre>object</code></td>
+<td style="text-align:left"><strong>(Блок)</strong> Информация о застройщике и продавце.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>area_breakdown</code></td>
+<td style="text-align:left"><code v-pre>object</code></td>
+<td style="text-align:left"><strong>(Блок)</strong> Детализация площади (кухня, комнаты).</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h3 id="модель-layout" tabindex="-1"><a class="header-anchor" href="#модель-layout"><span>Модель <code v-pre>Layout</code></span></a></h3>
-<p>Основной объект, описывающий планировку.</p>
-<h4 id="идентификаторы" tabindex="-1"><a class="header-anchor" href="#идентификаторы"><span>Идентификаторы</span></a></h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Поле</th>
-<th style="text-align:left">Тип</th>
-<th style="text-align:left">Описание и пример</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code v-pre>id</code></td>
-<td style="text-align:left"><code v-pre>UUID</code></td>
-<td style="text-align:left">Уникальный идентификатор планировки.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>request_id</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Внутренний идентификатор системы.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>project_uuid</code></td>
-<td style="text-align:left"><code v-pre>UUID</code></td>
-<td style="text-align:left">UUID проекта, к которому относится планировка.</td>
-</tr>
-</tbody>
-</table>
-<h4 id="расположение-в-здании" tabindex="-1"><a class="header-anchor" href="#расположение-в-здании"><span>Расположение в здании</span></a></h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Поле</th>
-<th style="text-align:left">Тип</th>
-<th style="text-align:left">Описание</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code v-pre>geo_house</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Номер дома (строения), напр., <code v-pre>&quot;160&quot;</code>.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>geo_house_entrance</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Номер подъезда.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>geo_flatnum</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Номер квартиры, напр., <code v-pre>&quot;135&quot;</code>.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>estate_floor</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Этаж расположения квартиры.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>estate_floors_in_house</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Общая этажность дома.</td>
-</tr>
-</tbody>
-</table>
-<h4 id="характеристики-недвижимости" tabindex="-1"><a class="header-anchor" href="#характеристики-недвижимости"><span>Характеристики недвижимости</span></a></h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Поле</th>
-<th style="text-align:left">Тип</th>
-<th style="text-align:left">Описание</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code v-pre>estate_area</code></td>
-<td style="text-align:left"><code v-pre>float</code></td>
-<td style="text-align:left">Общая площадь в м².</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>estate_rooms</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Количество комнат.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>estate_levelsCount</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Количество уровней в квартире (обычно <code v-pre>1</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>estate_planType</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Тип отделки/планировки (напр., <code v-pre>&quot;С перегородками&quot;</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>estate_planName</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Внутреннее/техническое название планировки.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>estate_housingClass</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Класс жилья (напр., <code v-pre>&quot;comfort&quot;</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>category</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Категория недвижимости (напр., <code v-pre>&quot;flat&quot;</code>).</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>layout_type</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Тип планировки (напр., <code v-pre>&quot;apartment&quot;</code>).</td>
-</tr>
-</tbody>
-</table>
-<h4 id="стоимость" tabindex="-1"><a class="header-anchor" href="#стоимость"><span>Стоимость</span></a></h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Поле</th>
-<th style="text-align:left">Тип</th>
-<th style="text-align:left">Описание (в тенге)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code v-pre>estate_price</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Полная стоимость объекта.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>estate_price_m2</code></td>
-<td style="text-align:left"><code v-pre>integer</code></td>
-<td style="text-align:left">Стоимость за квадратный метр.</td>
-</tr>
-</tbody>
-</table>
-<h4 id="статусы-и-флаги" tabindex="-1"><a class="header-anchor" href="#статусы-и-флаги"><span>Статусы и флаги</span></a></h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Поле</th>
-<th style="text-align:left">Тип</th>
-<th style="text-align:left">Описание</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code v-pre>is_published</code></td>
-<td style="text-align:left"><code v-pre>boolean</code></td>
-<td style="text-align:left"><code v-pre>true</code>, если планировка опубликована и видна.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>is_purchase</code></td>
-<td style="text-align:left"><code v-pre>boolean</code></td>
-<td style="text-align:left"><code v-pre>true</code>, если объект доступен для покупки.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>is_reserved</code></td>
-<td style="text-align:left"><code v-pre>boolean</code></td>
-<td style="text-align:left"><code v-pre>true</code>, если объект зарезервирован.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>is_sold</code></td>
-<td style="text-align:left"><code v-pre>boolean</code></td>
-<td style="text-align:left"><code v-pre>true</code>, если объект продан.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>oks_installment_plan</code></td>
-<td style="text-align:left"><code v-pre>boolean</code></td>
-<td style="text-align:left"><code v-pre>true</code>, если доступна рассрочка от застройщика.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>estate_group_buildState</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Стадия строительства (напр., <code v-pre>&quot;project&quot;</code>).</td>
-</tr>
-</tbody>
-</table>
-<h4 id="информация-о-продавце" tabindex="-1"><a class="header-anchor" href="#информация-о-продавце"><span>Информация о продавце</span></a></h4>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Поле</th>
-<th style="text-align:left">Тип</th>
-<th style="text-align:left">Описание</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code v-pre>company_name</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Название компании-застройщика.</td>
-</tr>
-<tr>
-<td style="text-align:left"><code v-pre>contacts_sell_name</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Название компании-продавца.</td>
-</tr>
-</tbody>
-</table>
-<h4 id="медиа-и-ссылки" tabindex="-1"><a class="header-anchor" href="#медиа-и-ссылки"><span>Медиа и ссылки</span></a></h4>
+<h3 id="блок-core" tabindex="-1"><a class="header-anchor" href="#блок-core"><span>Блок: <code v-pre>core</code></span></a></h3>
+<p>Основные параметры, определяющие квартиру.</p>
 <table>
 <thead>
 <tr>
@@ -280,68 +73,322 @@
 <tr>
 <td style="text-align:left"><code v-pre>title</code></td>
 <td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Маркетинговый заголовок (напр., <code v-pre>&quot;1 комнатная, 39.6 м²&quot;</code>).</td>
+<td style="text-align:left">Маркетинговый заголовок (напр., <code v-pre>&quot;3 комнатная, 82.31 м²&quot;</code>).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code v-pre>title_by_category</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">Заголовок, сгенерированный по категории.</td>
+<td style="text-align:left"><code v-pre>area</code></td>
+<td style="text-align:left"><code v-pre>float</code></td>
+<td style="text-align:left">Общая площадь в м².</td>
 </tr>
 <tr>
-<td style="text-align:left"><code v-pre>title_image</code></td>
-<td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">URL изображения планировки.</td>
+<td style="text-align:left"><code v-pre>price</code></td>
+<td style="text-align:left"><code v-pre>number</code></td>
+<td style="text-align:left">Полная стоимость объекта (в тенге).</td>
 </tr>
 <tr>
-<td style="text-align:left"><code v-pre>print_layout_url</code></td>
+<td style="text-align:left"><code v-pre>pricePerMeter</code></td>
+<td style="text-align:left"><code v-pre>number</code></td>
+<td style="text-align:left">Стоимость за квадратный метр.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>roomCount</code></td>
+<td style="text-align:left"><code v-pre>integer</code></td>
+<td style="text-align:left">Количество комнат.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>floor</code></td>
+<td style="text-align:left"><code v-pre>integer</code></td>
+<td style="text-align:left">Этаж расположения квартиры.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>totalFloors</code></td>
+<td style="text-align:left"><code v-pre>integer</code></td>
+<td style="text-align:left">Общая этажность дома.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>housingClass</code></td>
 <td style="text-align:left"><code v-pre>string</code></td>
-<td style="text-align:left">URL для скачивания PDF-версии планировки.</td>
+<td style="text-align:left">Класс жилья (напр., <code v-pre>&quot;comfort&quot;</code>).</td>
 </tr>
 </tbody>
 </table>
 <hr>
-<h3 id="пример-полного-ответа" tabindex="-1"><a class="header-anchor" href="#пример-полного-ответа"><span>Пример полного ответа</span></a></h3>
-<p><em>В данном примере для наглядности в массиве <code v-pre>response</code> показан только один объект.</em></p>
+<h3 id="блок-geo" tabindex="-1"><a class="header-anchor" href="#блок-geo"><span>Блок: <code v-pre>geo</code></span></a></h3>
+<p>Расположение квартиры в здании.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Поле</th>
+<th style="text-align:left">Тип</th>
+<th style="text-align:left">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code v-pre>entrance</code></td>
+<td style="text-align:left"><code v-pre>integer</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Номер подъезда.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>flatNumber</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Номер квартиры.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>houseNumber</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Номер дома (строения).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="блок-status" tabindex="-1"><a class="header-anchor" href="#блок-status"><span>Блок: <code v-pre>status</code></span></a></h3>
+<p>Набор логических статусов квартиры.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Поле</th>
+<th style="text-align:left">Тип</th>
+<th style="text-align:left">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code v-pre>isPublished</code></td>
+<td style="text-align:left"><code v-pre>boolean</code></td>
+<td style="text-align:left"><code v-pre>true</code>, если опубликовано и видно.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>isPurchase</code></td>
+<td style="text-align:left"><code v-pre>boolean</code></td>
+<td style="text-align:left"><code v-pre>true</code>, если доступно для покупки.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>isReserved</code></td>
+<td style="text-align:left"><code v-pre>boolean</code></td>
+<td style="text-align:left"><code v-pre>true</code>, если зарезервировано.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>isSold</code></td>
+<td style="text-align:left"><code v-pre>boolean</code></td>
+<td style="text-align:left"><code v-pre>true</code>, если продано.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>hasInstallmentPlan</code></td>
+<td style="text-align:left"><code v-pre>boolean</code></td>
+<td style="text-align:left"><code v-pre>true</code>, если доступна рассрочка.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="блок-details" tabindex="-1"><a class="header-anchor" href="#блок-details"><span>Блок: <code v-pre>details</code></span></a></h3>
+<p>Дополнительные технические характеристики.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Поле</th>
+<th style="text-align:left">Тип</th>
+<th style="text-align:left">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code v-pre>levelsCount</code></td>
+<td style="text-align:left"><code v-pre>integer</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Количество уровней в квартире (обычно <code v-pre>1</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>buildState</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Стадия строительства (напр., <code v-pre>&quot;project&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>giveupType</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Внутренний код типа сдачи (напр., <code v-pre>&quot;12713&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>planType</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Описание типа планировки (напр., <code v-pre>&quot;С перегородками&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>planTypeCode</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Код типа планировки (напр., <code v-pre>&quot;walls&quot;</code> или <code v-pre>&quot;free&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>planName</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Внутреннее/техническое название планировки.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>layoutType</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Категория недвижимости (напр., <code v-pre>&quot;apartment&quot;</code>, <code v-pre>&quot;commercial&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>titleByCategory</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Заголовок, сгенерированный по категории.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="блок-media" tabindex="-1"><a class="header-anchor" href="#блок-media"><span>Блок: <code v-pre>media</code></span></a></h3>
+<p>Ссылки на медиа-файлы.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Поле</th>
+<th style="text-align:left">Тип</th>
+<th style="text-align:left">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code v-pre>titleImage</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">URL изображения планировки.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>printLayout</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">URL для скачивания PDF-версии планировки.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>floorPlan</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">URL изображения плана этажа (<code v-pre>null</code>, если нет).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="блок-company" tabindex="-1"><a class="header-anchor" href="#блок-company"><span>Блок: <code v-pre>company</code></span></a></h3>
+<p>Информация о продавце.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Поле</th>
+<th style="text-align:left">Тип</th>
+<th style="text-align:left">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code v-pre>companyName</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Название компании-застройщика.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>sellerName</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Название компании-продавца.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="блок-area-breakdown" tabindex="-1"><a class="header-anchor" href="#блок-area-breakdown"><span>Блок: <code v-pre>area_breakdown</code></span></a></h3>
+<p>Детализация площади по комнатам (может быть не заполнена).</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Поле</th>
+<th style="text-align:left">Тип</th>
+<th style="text-align:left">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code v-pre>kitchen</code></td>
+<td style="text-align:left"><code v-pre>float</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Площадь кухни, м².</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>bathroom</code></td>
+<td style="text-align:left"><code v-pre>float</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Площадь санузла, м².</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>hallway</code></td>
+<td style="text-align:left"><code v-pre>float</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Площадь коридора/прихожей, м².</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>rooms</code></td>
+<td style="text-align:left"><code v-pre>object</code></td>
+<td style="text-align:left">Объект (словарь) с площадями комнат. Ключами являются <code v-pre>area_room_N</code> (комнаты) и <code v-pre>area_bedroom_N</code> (спальни).</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="пример-ответа-из-списка-service-projects-layouts" tabindex="-1"><a class="header-anchor" href="#пример-ответа-из-списка-service-projects-layouts"><span>Пример ответа (из списка <code v-pre>/service/projects/layouts</code>)</span></a></h3>
+<p>Ниже приведен пример ответа от API. В массиве <code v-pre>data</code> для наглядности показан только один объект квартиры.</p>
 <div class="language-json line-numbers-mode" data-highlighter="prismjs" data-ext="json"><pre v-pre><code><span class="line"><span class="token punctuation">{</span></span>
-<span class="line">    <span class="token property">"response"</span><span class="token operator">:</span> <span class="token punctuation">[</span></span>
+<span class="line">    <span class="token property">"data"</span><span class="token operator">:</span> <span class="token punctuation">[</span></span>
 <span class="line">        <span class="token punctuation">{</span></span>
-<span class="line">            <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"8126d60d-d617-492e-9e10-aa5e73e4afe7"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"request_id"</span><span class="token operator">:</span> <span class="token number">6088878</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"project_uuid"</span><span class="token operator">:</span> <span class="token string">"60175bd5-a1f9-4191-9188-5345000a5f31"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"geo_flatnum"</span><span class="token operator">:</span> <span class="token string">"135"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"geo_house"</span><span class="token operator">:</span> <span class="token string">"160"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"geo_house_entrance"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_levelsCount"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_area"</span><span class="token operator">:</span> <span class="token number">39.6</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_price"</span><span class="token operator">:</span> <span class="token number">18572400</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_price_m2"</span><span class="token operator">:</span> <span class="token number">469000</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_floor"</span><span class="token operator">:</span> <span class="token number">11</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_floors_in_house"</span><span class="token operator">:</span> <span class="token number">16</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_rooms"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_group_buildState"</span><span class="token operator">:</span> <span class="token string">"project"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_giveupType"</span><span class="token operator">:</span> <span class="token string">"12713"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_planType"</span><span class="token operator">:</span> <span class="token string">"С перегородками"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_planName"</span><span class="token operator">:</span> <span class="token string">"2-7_15"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"estate_housingClass"</span><span class="token operator">:</span> <span class="token string">"comfort"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"category"</span><span class="token operator">:</span> <span class="token string">"flat"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"is_published"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"is_purchase"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"is_reserved"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"is_sold"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"layout_type"</span><span class="token operator">:</span> <span class="token string">"apartment"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"oks_installment_plan"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"company_name"</span><span class="token operator">:</span> <span class="token string">"OKS Development"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"contacts_sell_name"</span><span class="token operator">:</span> <span class="token string">"ТОО Standard Construction-7"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"1 комнатная, 39.6 м²"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"title_by_category"</span><span class="token operator">:</span> <span class="token string">"1 комнатная, 39.6 м²"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"title_image"</span><span class="token operator">:</span> <span class="token string">"[https://banking.oks-group.kz/media/layout_images/2-7_15.png](https://banking.oks-group.kz/media/layout_images/2-7_15.png)"</span><span class="token punctuation">,</span></span>
-<span class="line">            <span class="token property">"print_layout_url"</span><span class="token operator">:</span> <span class="token string">"[https://banking.oks-group.kz/ru/layout/pdf/8126d60d-d617-492e-9e10-aa5e73e4afe7/](https://banking.oks-group.kz/ru/layout/pdf/8126d60d-d617-492e-9e10-aa5e73e4afe7/)"</span></span>
+<span class="line">            <span class="token property">"uuid"</span><span class="token operator">:</span> <span class="token string">"9345ef50-c2bd-45eb-8daa-4e127812bfbb"</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token property">"projectUuid"</span><span class="token operator">:</span> <span class="token string">"3c3a855a-51a5-41b3-94e8-dcbf6dfcc12a"</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token property">"core"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">                <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"3 комнатная, 82.31 м²"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"area"</span><span class="token operator">:</span> <span class="token number">82.31</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"price"</span><span class="token operator">:</span> <span class="token number">31277800.0</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"pricePerMeter"</span><span class="token operator">:</span> <span class="token number">380000.0</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"roomCount"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"floor"</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"totalFloors"</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"housingClass"</span><span class="token operator">:</span> <span class="token string">"comfort"</span></span>
+<span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token property">"geo"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">                <span class="token property">"entrance"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"flatNumber"</span><span class="token operator">:</span> <span class="token string">"23"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"houseNumber"</span><span class="token operator">:</span> <span class="token string">"241А"</span></span>
+<span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token property">"status"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">                <span class="token property">"isPublished"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"isPurchase"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"isReserved"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"isSold"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"hasInstallmentPlan"</span><span class="token operator">:</span> <span class="token boolean">true</span></span>
+<span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token property">"details"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">                <span class="token property">"levelsCount"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"buildState"</span><span class="token operator">:</span> <span class="token string">"project"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"giveupType"</span><span class="token operator">:</span> <span class="token string">"12713"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"planType"</span><span class="token operator">:</span> <span class="token string">"С перегородками"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"planTypeCode"</span><span class="token operator">:</span> <span class="token string">"walls"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"planName"</span><span class="token operator">:</span> <span class="token string">"1-1_5-82,31"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"layoutType"</span><span class="token operator">:</span> <span class="token string">"apartment"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"titleByCategory"</span><span class="token operator">:</span> <span class="token string">"3 комнатная, 82.31 м²"</span></span>
+<span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token property">"media"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">                <span class="token property">"titleImage"</span><span class="token operator">:</span> <span class="token string">"https://api.oks-group.kz/media/layout_images/1-1_5-8231.png"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"printLayout"</span><span class="token operator">:</span> <span class="token string">"https://api.oks-group.kz/ru/layout/pdf/9345ef50-c2bd-45eb-8daa-4e127812bfbb/"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"floorPlan"</span><span class="token operator">:</span> <span class="token string">"https://api.oks-group.kz/media/layout_images/podezd_2._yetazh_7.png"</span></span>
+<span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token property">"company"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">                <span class="token property">"companyName"</span><span class="token operator">:</span> <span class="token string">"OKS Development"</span><span class="token punctuation">,</span></span>
+<span class="line">                <span class="token property">"sellerName"</span><span class="token operator">:</span> <span class="token string">"ТОО «Asar house»"</span></span>
+<span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line">			<span class="token property">"area_breakdown"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">				<span class="token property">"kitchen"</span><span class="token operator">:</span> <span class="token number">12.5</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"bathroom"</span><span class="token operator">:</span> <span class="token number">4.8</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"hallway"</span><span class="token operator">:</span> <span class="token number">6.2</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"rooms"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">					<span class="token property">"area_room_1"</span><span class="token operator">:</span> <span class="token number">22.0</span><span class="token punctuation">,</span></span>
+<span class="line">					<span class="token property">"area_bedroom_1"</span><span class="token operator">:</span> <span class="token number">16.5</span><span class="token punctuation">,</span></span>
+<span class="line">					<span class="token property">"area_bedroom_2"</span><span class="token operator">:</span> <span class="token number">14.0</span></span>
+<span class="line">				<span class="token punctuation">}</span></span>
+<span class="line">			<span class="token punctuation">}</span></span>
 <span class="line">        <span class="token punctuation">}</span></span>
 <span class="line">    <span class="token punctuation">]</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">42</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"pages"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"current_page"</span><span class="token operator">:</span> <span class="token number">1</span></span>
+<span class="line">    <span class="token property">"meta"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">        <span class="token property">"total_items"</span><span class="token operator">:</span> <span class="token number">33</span><span class="token punctuation">,</span></span>
+<span class="line">        <span class="token property">"total_pages"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></span>
+<span class="line">        <span class="token property">"current_page"</span><span class="token operator">:</span> <span class="token number">2</span></span>
+<span class="line">		<span class="token comment">// ... и т.д</span></span>
+<span class="line">    <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
 
 

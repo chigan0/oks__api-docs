@@ -1,33 +1,37 @@
 # Ресурс: Комплексы (Projects)
 
-Этот ресурс предоставляет доступ к данным о жилых комплексах (ЖК).
+Этот документ описывает подробную структуру данных для объекта "Жилой Комплекс" (ЖК). Эта структура используется во всех эндпоинтах, возвращающих данные о ЖК, включая список (`/service/projects/list`) и получение по UUID (`/service/projects/{project_uuid}`).
 
 ## Получить список ЖК
 
 Возвращает постраничный список всех жилых комплексов.
 
 -   **Method:** `GET`
--   **URL:** `/service/project/list`
+-   **URL:** `/service/projects/list`
 -   **Authentication:** `Bearer Token`
 
 ---
 
-### Тело ответа: `200 OK`
+### Тело ответа: 200 OK
 
-В случае успешного запроса API возвращает объект `ListResponse`, где поле `response` содержит массив объектов `ProjectResponseDto`.
-
-#### Объект `ListResponse`
+В случае успешного запроса API возвращает объект, где поле `data` содержит массив объектов ЖК, а поле `meta` — информацию о пагинации.
 
 | Поле | Тип | Описание |
 | :--- | :--- | :--- |
-| `response` | `array` | Массив объектов `ProjectResponseDto`. |
-| `count` | `integer` | Общее количество объектов. |
-| `pages` | `integer` | Общее количество страниц. |
+| `data` | `array` | Массив объектов, описывающих ЖК. |
+| `meta` | `object` | Объект с мета-информацией о пагинации. |
+
+#### Объект `meta`
+
+| Поле | Тип | Описание |
+| :--- | :--- | :--- |
+| `total_items` | `integer` | Общее количество объектов. |
+| `total_pages` | `integer` | Общее количество страниц. |
 | `current_page` | `integer` | Номер текущей страницы. |
 
 ---
 
-### Модель `ProjectResponseDto`
+### Структура объекта ЖК
 
 Основной объект, описывающий жилой комплекс, сгруппированный по логическим блокам.
 
@@ -38,123 +42,102 @@
 | `slug` | `string` | Человекочитаемый идентификатор для URL (напр., `"zhk-prime-park-2"`). |
 | `uuid` | `UUID` | Уникальный идентификатор проекта (UUID). |
 
-<br/>
-
-#### Вложенные объекты
-
-| Поле | Тип | Описание |
-| :--- | :--- | :--- |
-| `class` | `ProjectClass` | Класс жилья. |
-| `status` | `ProjectStatuses` | Набор статусов проекта (в продаже, построен и т.д.). |
-| `completion` | `ProjectCompletion` | Год и квартал сдачи. |
-| `location` | `ProjectLocation` | Адрес и географические координаты. |
-| `pricing` | `ProjectPricing` | Информация о ценах и площади. |
-| `media` | `ProjectMedia` | Медиа-ресурсы: изображения, панорамы, буклеты. |
-| `links` | `ProjectLinks` | Внешние ссылки на документы и ресурсы. |
-| `style` | `ProjectStyle` | Цветовые решения для оформления. |
-| `infrastructure` | `InfraLocation` / `null` | Объекты инфраструктуры на карте. |
-| `nearby_infrastructure` | `array[NearbyInfraItem]` / `null` | Список объектов ближайшей инфраструктуры. |
-
----
-
-### Вложенные модели
-
-#### Модель `ProjectClass`
+#### Класс жилья
 
 | Поле | Тип | Описание |
 | :--- | :--- | :--- |
 | `code` | `string` | Кодовое обозначение класса (напр., `"business"`). |
 | `name` | `string` | Название класса (напр., `"бизнес"`). |
 
-#### Модель `ProjectStatuses`
+#### Статусы проекта
 
 | Поле | Тип | Описание |
 | :--- | :--- | :--- |
-| `is_sale` | `boolean` | `true`, если в ЖК ведутся продажи. |
-| `is_completed` | `boolean` | `true`, если ЖК уже построен. |
-| `has_housing_guarantee` | `boolean` | `true`, если проект участвует в программе гос. гарантий. |
-| `has_decoration` | `boolean` | `true`, если проект декоротивный. |
+| `isSale` | `boolean` | `true`, если в ЖК ведутся продажи. |
+| `isCompleted` | `boolean` | `true`, если ЖК уже построен. |
+| `hasHousingGuarantee` | `boolean` | `true`, если проект участвует в программе гос. гарантий. |
+| `hasDecoration` | `boolean` | `true`, если проект декоротивный. |
 
-#### Модель `ProjectCompletion`
+#### Срок сдачи
 
 | Поле | Тип | Описание |
 | :--- | :--- | :--- |
 | `year` | `integer`| Год сдачи объекта (напр., `2025`). |
 | `quarter` | `integer`| Квартал сдачи объекта (1-4). |
 
-#### Модель `ProjectLocation`
+#### Локация
 
 | Поле | Тип | Описание |
 | :--- | :--- | :--- |
 | `address` | `string` | Полный адрес объекта. |
-| `coordinates` | `ProjectLatLon` | Объект с географическими координатами. |
+| `coordinates` | `object` | Объект с географическими координатами (`lat`, `lon`). |
 
-#### Модель `ProjectPricing`
-
-| Поле | Тип | Описание |
-| :--- | :--- | :--- |
-| `min_area_sqm`| `float` | Минимальная площадь квартир в продаже, м². |
-| `min_price` | `integer`| Минимальная цена квартир в продаже (в тенге). |
-
-#### Модель `ProjectMedia`
+#### Ценообразование
 
 | Поле | Тип | Описание |
 | :--- | :--- | :--- |
-| `cover_image` | `string` / `null` | URL главного изображения (рендера) ЖК. |
+| `minAreaSqm`| `float` | Минимальная площадь квартир в продаже, м². |
+| `minPrice` | `integer`| Минимальная цена квартир в продаже (в тенге). |
+
+#### Медиа-ресурсы
+
+| Поле | Тип | Описание |
+| :--- | :--- | :--- |
+| `coverImage` | `string` / `null` | URL главного изображения (рендера) ЖК. |
 | `images` | `array[string]` / `null` | Массив URL-адресов для галереи. |
-| `panoramic_view`| `string` / `null` | Ссылка на панорамный вид. |
-| `booklet_url` | `string` / `null` | URL для скачивания буклета проекта. |
+| `panoramicView`| `string` / `null` | Ссылка на панорамный вид. |
+| `bookletUrl` | `string` / `null` | URL для скачивания буклета проекта. |
 
-#### Модель `ProjectLinks`
-
-| Поле | Тип | Описание |
-| :--- | :--- | :--- |
-| `housing_guarantee_url`| `string` / `null` | Ссылка на страницу проекта на сайте КЖК. |
-| `housing_guarantee_docs`| `string` / `null` | Ссылка на документы проекта на сайте КЖК. |
-
-#### Модель `ProjectStyle`
+#### Внешние ссылки
 
 | Поле | Тип | Описание |
 | :--- | :--- | :--- |
-| `primary_color` | `string` / `null` | HEX-код основного цвета проекта (напр., `"#0e3737"`). |
-| `secondary_color`| `string` / `null` | HEX-код дополнительного цвета проекта. |
+| `housingGuaranteeUrl`| `string` / `null` | Ссылка на страницу проекта на сайте КЖК. |
+| `housingGuaranteeDocs`| `string` / `null` | Ссылка на документы проекта на сайте КЖК. |
 
-#### Модель `InfraLocation`
-
-| Поле | Тип | Описание |
-| :--- | :--- | :--- |
-| `placemarks` | `array[InfraPlacemarkItem]`| Группы отметок на карте (школы, магазины и т.д.). |
-| `project_data`| `object` / `null` | Координаты и главное изображение самого проекта. |
-
-#### Модель `NearbyInfraItem`
+#### Стиль
 
 | Поле | Тип | Описание |
 | :--- | :--- | :--- |
-| `location_name`| `string` | Название объекта (напр., `"Shymkent city park"`). |
-| `minutes_until`| `integer` | Время в минутах (пешком или на авто). |
+| `primaryColor` | `string` / `null` | HEX-код основного цвета проекта (напр., `"#0e3737"`). |
+| `secondaryColor`| `string` / `null` | HEX-код дополнительного цвета проекта. |
+
+#### Инфраструктура (на карте)
+
+| Поле | Тип | Описание |
+| :--- | :--- | :--- |
+| `placemarks` | `array[object]`| Группы отметок на карте (школы, магазины и т.д.). |
+| `projectData`| `object` / `null` | Координаты и главное изображение самого проекта. |
+
+#### Ближайшая инфраструктура
+
+| Поле | Тип | Описание |
+| :--- | :--- | :--- |
+| `locationName`| `string` | Название объекта (напр., `"Shymkent city park"`). |
+| `minutesUntil`| `integer` | Время в минутах (пешком или на авто). |
 | `icon` | `string` | URL иконки для отображения. |
 
 ---
 
 ### Пример полного ответа
 
-*В данном примере для наглядности в массиве `response` показан только один объект. Массивы координат (`placemarks`) сокращены.*
+*В данном примере для наглядности в массиве `data` показан только один объект. Массивы координат (`placemarks`) сокращены.*
 
 ```json
 {
-    "response": [
+    "data": [
         {
             "slug": "zhk-prime-park-2",
-            "uuid": "7e97c863-337b-4a4a-9ad3-0215a04d443f",
+            "uuid": "c093a188-f5ed-4617-a241-b7c6924b4f1c",
             "class": {
                 "code": "business",
                 "name": "бизнес"
             },
             "status": {
-                "is_sale": true,
-                "is_completed": false,
-                "has_housing_guarantee": true,
-                "has_decoration": false
+                "isSale": true,
+                "isCompleted": false,
+                "hasHousingGuarantee": false,
+                "hasDecoration": false
             },
             "completion": {
                 "year": 2025,
@@ -168,74 +151,77 @@
                 }
             },
             "pricing": {
-                "min_area_sqm": 38.27,
-                "min_price": 18045300
+                "minAreaSqm": 38.27,
+                "minPrice": 18045300
             },
             "media": {
-                "cover_image": "https://banking.oks-group.kz/media/images/Prime_Park_2_превью.webp",
+                "coverImage": "[https://api.oks-group.kz/media/images/Prime_Park_2_%D0%BF%D1%80%D0%B5%D0%B2%D1%8C%D1%8E.webp](https://api.oks-group.kz/media/images/Prime_Park_2_%D0%BF%D1%80%D0%B5%D0%B2%D1%8C%D1%8E.webp)",
                 "images": [
-                    "https://banking.oks-group.kz/media/images/Прайм_2.webp",
-                    "https://banking.oks-group.kz/media/images/Prime_Park_2_слайдер_3.webp",
-                    "https://banking.oks-group.kz/media/images/Prime_Park_2_слайдер_2.webp",
-                    "https://banking.oks-group.kz/media/images/Prime_Park_2_слайдер_1.webp"
+                    "[https://api.oks-group.kz/media/images/%D0%9F%D1%80%D0%B0%D0%B9%D0%BC_2.webp](https://api.oks-group.kz/media/images/%D0%9F%D1%80%D0%B0%D0%B9%D0%BC_2.webp)",
+                    "[https://api.oks-group.kz/media/images/Prime_Park_2_%D1%81%D0%BB%D0%B0%D0%B9%D0%B4%D0%B5%D1%80_3.webp](https://api.oks-group.kz/media/images/Prime_Park_2_%D1%81%D0%BB%D0%B0%D0%B9%D0%B4%D0%B5%D1%80_3.webp)",
+                    "[https://api.oks-group.kz/media/images/Prime_Park_2_%D1%81%D0%BB%D0%B0%D0%B9%D0%B4%D0%B5%D1%80_2.webp](https://api.oks-group.kz/media/images/Prime_Park_2_%D1%81%D0%BB%D0%B0%D0%B9%D0%B4%D0%B5%D1%80_2.webp)",
+                    "[https://api.oks-group.kz/media/images/Prime_Park_2_%D1%81%D0%BB%D0%B0%D0%B9%D0%B4%D0%B5%D1%80_1_uGdLb3E.webp](https://api.oks-group.kz/media/images/Prime_Park_2_%D1%81%D0%BB%D0%B0%D0%B9%D0%B4%D0%B5%D1%80_1_uGdLb3E.webp)"
                 ],
-                "panoramic_view": "https://banking.oks-group.kz/media/images/Prime_Park_2_panorama_day.webp",
-                "booklet_url": "https://banking.oks-group.kz/media/macro_projects/booklet/_Prime_Park_2_-_Лифлет_ФИНАЛ_3_b4s7kPR.pdf"
+                "panoramicView": "https://api.oks-group.kz/media/images/Tulpar-panorama.jpg",
+                "bookletUrl": "[https://api.oks-group.kz/media/macro_projects/booklet/_Prime_Park_2_-_%D0%9B%D0%B8%D1%84%D0%BB%D0%B5%D1%82_%D0%A4%D0%98%D0%9D%D0%90%D0%9B_3_b4s7kPR.pdf](https://api.oks-group.kz/media/macro_projects/booklet/_Prime_Park_2_-_%D0%9B%D0%B8%D1%84%D0%BB%D0%B5%D1%82_%D0%A4%D0%98%D0%9D%D0%90%D0%9B_3_b4s7kPR.pdf)"
             },
             "links": {
-                "housing_guarantee_url": "https://homeportal.kz/projects/zk-prime-park-2",
-                "housing_guarantee_docs": "https://banking.oks-group.kz/media/macro_projects/kzhk_docs/prime-park-2-guarantee.pdf"
+                "housingGuaranteeUrl": "https://homeportal.kz/projects/zk-khanzada-bloki-1-2",
+                "housingGuaranteeDocs": "https://api.oks-group.kz/media/macro_projects/kzhk_docs/%D0%A0%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE_%D0%BF%D0%BE_%D0%B1%D1%80%D0%B5%D0%BD%D0%B4%D1%83_OKS_4_1_d2GwoGV.pdf"
             },
             "style": {
-                "primary_color": "#0e3737",
-                "secondary_color": "#FFFFFF"
+                "primaryColor": "#0e3737",
+                "secondaryColor": "#0e3737"
             },
             "infrastructure": {
                 "placemarks": [
                     {
                         "title": "Аптеки",
-                        "icon": "https://banking.oks-group.kz/media/projects/infra_location/apteka.svg",
+                        "icon": "[https://api.oks-group.kz/media/projects/infra_location/apteka.svg](https://api.oks-group.kz/media/projects/infra_location/apteka.svg)",
                         "placemarks": [
                             [ 42.382121, 69.629821 ],
-                            [ 42.378971, 69.642588 ],
-                            [ 42.382423, 69.646279 ]
+                            [ 42.378971, 69.642588 ]
                         ]
                     },
                     {
                         "title": "Магазины",
-                        "icon": "https://banking.oks-group.kz/media/projects/infra_location/shop.svg",
+                        "icon": "[https://api.oks-group.kz/media/projects/infra_location/shop.svg](https://api.oks-group.kz/media/projects/infra_location/shop.svg)",
                         "placemarks": [
-                             [ 42.380383, 69.634754 ],
-                             [ 42.379938, 69.638853 ]
+                            [ 42.380383, 69.634754 ],
+                            [ 42.379938, 69.638853 ]
                         ]
                     }
                 ],
-                "project_data": {
-                    "title_imae": "https://banking.oks-group.kz/media/images/Prime_Park_2_превью.webp",
-                    "cords": [ 42.389223, 69.626284 ]
+                "projectData": {
+                    "titleImage": "[https://api.oks-group.kz/media/images/Prime_Park_2_%D0%BF%D1%80%D0%B5%D0%B2%D1%8C%D1%8E.webp](https://api.oks-group.kz/media/images/Prime_Park_2_%D0%BF%D1%80%D0%B5%D0%B2%D1%8C%D1%8E.webp)",
+                    "cords": [
+                        42.38922356578563,
+                        69.62628422021632
+                    ]
                 }
             },
-            "nearby_infrastructure": [
+            "nearbyInfrastructure": [
                 {
-                    "location_name": "Shymkent city park",
-                    "minutes_until": 5,
-                    "icon": "https://banking.oks-group.kz/media/images/Group_1011.svg"
+                    "locationName": "Shymkent city park",
+                    "minutesUntil": 5,
+                    "icon": "[https://api.oks-group.kz/media/images/Group_1011.svg](https://api.oks-group.kz/media/images/Group_1011.svg)"
                 },
                 {
-                    "location_name": "Seitzhan school",
-                    "minutes_until": 10,
-                    "icon": "https://banking.oks-group.kz/media/images/Group_1011.svg"
+                    "locationName": "Seitzhan school",
+                    "minutesUntil": 10,
+                    "icon": "[https://api.oks-group.kz/media/images/Group_1011.svg](https://api.oks-group.kz/media/images/Group_1011.svg)"
                 },
                 {
-                    "location_name": "Diamond plaza",
-                    "minutes_until": 15,
-                    "icon": "https://banking.oks-group.kz/media/images/Vector7.svg"
+                    "locationName": "Diamond plaza",
+                    "minutesUntil": 15,
+                    "icon": "[https://api.oks-group.kz/media/images/Vector7.svg](https://api.oks-group.kz/media/images/Vector7.svg)"
                 }
             ]
         }
     ],
-    "count": 1,
-    "pages": 1,
-    "current_page": 1
+    "meta": {
+        "total_items": 1,
+        "total_pages": 1,
+        "current_page": 1
+    }
 }
-```

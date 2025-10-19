@@ -4,6 +4,11 @@
 
 Этот гайд поможет вам сделать ваш первый успешный запрос к API.
 
+# Префикс API
+Все эндпоинты, описанные в этой документации, используют префикс `/api/v1/`. Убедитесь, что все ваши запросы к API включают этот префикс в URL.
+
+Базовый URL: https://banking.oks-group.kz/api/v1
+
 ## Шаг 0: Получение доступов
 
 Для начала работы вам потребуются **`сlient_id`** и **`client_secret`**. Эти данные являются вашим уникальным идентификатором и секретным ключом для доступа к системе.
@@ -17,7 +22,7 @@
 Отправьте `POST`-запрос на эндпоинт `/service/token`:
 
 ```bash
-curl -X POST "[https://banking.oks-group.kz/service/token](https://banking.oks-group.kz/service/token)" \
+curl -X POST "https://banking.oks-group.kz/api/v1/service/token" \
      -H "Content-Type: application/json" \
      -d '{
            "grant_type": "client_credentials",
@@ -43,7 +48,7 @@ curl -X POST "[https://banking.oks-group.kz/service/token](https://banking.oks-g
 Теперь, имея токен, вы можете запрашивать данные. Давайте получим список всех жилых комплексов. Для этого нужно отправить `GET`-запрос, передав токен в заголовке `Authorization`.
 
 ```bash
-curl -X GET "[https://banking.oks-group.kz/service/project/list](https://banking.oks-group.kz/service/project/list)" \
+curl -X GET "https://banking.oks-group.kz/api/v1/service/projects/list" \
      -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -51,7 +56,7 @@ curl -X GET "[https://banking.oks-group.kz/service/project/list](https://banking
 
 ```json
 {
-  "response": [
+  "data": [
     {
       "slug": "zhk-prime-park-2",
       "uuid": "7e97c863-337b-4a4a-9ad3-0215a04d443f",
@@ -70,9 +75,11 @@ curl -X GET "[https://banking.oks-group.kz/service/project/list](https://banking
     }
     // ... другие проекты
   ],
-  "count": 8,
-  "pages": 1,
-  "current_page": 1
+  "meta":{
+	"total_items": 10,
+	"total_pages": 1,
+	"current_page": 1
+  }
 }
 ```
 

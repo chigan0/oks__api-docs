@@ -14,6 +14,9 @@ export default defineUserConfig({
 	],
 
 	theme: defaultTheme({
+		lastUpdated: false,
+		contributors: false,
+
 		logo: '/images/oks-logo.svg',
 		navbar: [
 			{ text: 'Руководство', link: '/guide/' },
@@ -28,7 +31,7 @@ export default defineUserConfig({
 					'/guide/README.md',
 					'/guide/authentication.md',
 					'/guide/catalog.md',
-					'/guide/booking.md',
+					// '/guide/booking.md',
 				],
 				},
 			],

@@ -5,7 +5,7 @@
 <h2 id="эндпоинт-получения-токена" tabindex="-1"><a class="header-anchor" href="#эндпоинт-получения-токена"><span>Эндпоинт получения токена</span></a></h2>
 <ul>
 <li><strong>Method:</strong> <code v-pre>POST</code></li>
-<li><strong>URL:</strong> <code v-pre>/service/token</code></li>
+<li><strong>URL:</strong> <code v-pre>/api/v1/service/token</code></li>
 </ul>
 <p>Этот эндпоинт обрабатывает все операции, связанные с выдачей и обновлением токенов, в зависимости от переданного <code v-pre>grant_type</code>.</p>
 <hr>
@@ -43,8 +43,7 @@
 </tbody>
 </table>
 <h4 id="пример-запроса" tabindex="-1"><a class="header-anchor" href="#пример-запроса"><span>Пример запроса</span></a></h4>
-<p>[ {{$site}} ]</p>
-<div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token string">"[https://banking.oks-group.kz/service/token](https://banking.oks-group.kz/service/token)"</span> <span class="token punctuation">\</span></span>
+<div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token string">"https://banking.oks-group.kz/api/v1/service/token"</span> <span class="token punctuation">\</span></span>
 <span class="line">     <span class="token parameter variable">-H</span> <span class="token string">"Content-Type: application/json"</span> <span class="token punctuation">\</span></span>
 <span class="line">     <span class="token parameter variable">-d</span> <span class="token string">'{</span>
 <span class="line">           "grant_type": "client_credentials",</span>
@@ -108,7 +107,7 @@
 </tbody>
 </table>
 <h4 id="пример-запроса-1" tabindex="-1"><a class="header-anchor" href="#пример-запроса-1"><span>Пример запроса</span></a></h4>
-<div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token string">"[https://banking.oks-group.kz/service/token](https://banking.oks-group.kz/service/token)"</span> <span class="token punctuation">\</span></span>
+<div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> POST <span class="token string">"https://banking.oks-group.kz/api/v1/service/token"</span> <span class="token punctuation">\</span></span>
 <span class="line">     <span class="token parameter variable">-H</span> <span class="token string">"Content-Type: application/json"</span> <span class="token punctuation">\</span></span>
 <span class="line">     <span class="token parameter variable">-d</span> <span class="token string">'{</span>
 <span class="line">           "grant_type": "refresh_token",</span>

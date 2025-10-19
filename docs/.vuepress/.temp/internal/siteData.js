@@ -1,4 +1,4 @@
-export const siteData = JSON.parse("{\"base\":\"/\",\"lang\":\"ru-RU\",\"title\":\"OKS API Docs\",\"description\":\"OKS API Docs\",\"head\":[[\"link\",{\"rel\":\"icon\",\"href\":\"/favicon.ico\"}]],\"locales\":{}}")
+export const siteData = JSON.parse("{\"base\":\"/docs/\",\"lang\":\"ru-RU\",\"title\":\"\",\"description\":\"OKS API Docs\",\"head\":[[\"link\",{\"rel\":\"icon\",\"href\":\"/favicon.ico\"}]],\"locales\":{}}")
 
 if (import.meta.webpackHot) {
   import.meta.webpackHot.accept()

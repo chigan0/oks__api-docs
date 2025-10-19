@@ -9,7 +9,7 @@
 ## Эндпоинт получения токена
 
 - **Method:** `POST`
-- **URL:** `/service/token`
+- **URL:** `/api/v1/service/token`
 
 Этот эндпоинт обрабатывает все операции, связанные с выдачей и обновлением токенов, в зависимости от переданного `grant_type`.
 
@@ -27,7 +27,7 @@
 
 #### Пример запроса
 ```bash
-curl -X POST "[https://banking.oks-group.kz/service/token](https://banking.oks-group.kz/service/token)" \
+curl -X POST "https://banking.oks-group.kz/api/v1/service/token" \
      -H "Content-Type: application/json" \
      -d '{
            "grant_type": "client_credentials",
@@ -56,7 +56,7 @@ curl -X POST "[https://banking.oks-group.kz/service/token](https://banking.oks-g
 
 #### Пример запроса
 ```bash
-curl -X POST "[https://banking.oks-group.kz/service/token](https://banking.oks-group.kz/service/token)" \
+curl -X POST "https://banking.oks-group.kz/api/v1/service/token" \
      -H "Content-Type: application/json" \
      -d '{
            "grant_type": "refresh_token",
