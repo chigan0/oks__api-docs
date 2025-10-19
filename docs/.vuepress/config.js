@@ -10,7 +10,7 @@ export default defineUserConfig({
 	description: 'OKS API Docs',
 	apiDomain: 'https://banking.oks-group.kz',
 	head: [
-		['link', { rel: 'icon', href: '/favicon.ico' }]
+		['link', { rel: 'icon', href: '/docs/favicon.ico' }]
 	],
 
 	theme: defaultTheme({
