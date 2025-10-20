@@ -53,9 +53,9 @@ curl -X GET "https://banking.oks-group.kz/api/v1/service/projects/list?isSale=tr
     // ... другие проекты
   ],
   "meta": {
-    "total_items": 8,
-    "total_pages": 1,
-    "current_page": 1
+    "totalItems": 8,
+    "totalPages": 1,
+    "currentPage": 1
   }
 }
 ```
@@ -168,9 +168,9 @@ curl -X GET "https://banking.oks-group.kz/api/v1/service/projects/layouts?limit=
     // ... (другие квартиры)
   ],
   "meta": {
-    "total_items": 33,
-    "total_pages": 2,
-    "current_page": 2
+    "totalItems": 33,
+    "totalPages": 2,
+    "currentPage": 2
   }
 }
 ```

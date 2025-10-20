@@ -42,17 +42,17 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><code v-pre>total_items</code></td>
+<td style="text-align:left"><code v-pre>totalItems</code></td>
 <td style="text-align:left"><code v-pre>integer</code></td>
 <td style="text-align:left">Общее количество объектов.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code v-pre>total_pages</code></td>
+<td style="text-align:left"><code v-pre>totalPages</code></td>
 <td style="text-align:left"><code v-pre>integer</code></td>
 <td style="text-align:left">Общее количество страниц.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code v-pre>current_page</code></td>
+<td style="text-align:left"><code v-pre>currentPage</code></td>
 <td style="text-align:left"><code v-pre>integer</code></td>
 <td style="text-align:left">Номер текущей страницы.</td>
 </tr>
@@ -427,9 +427,9 @@
 <span class="line">        <span class="token punctuation">}</span></span>
 <span class="line">    <span class="token punctuation">]</span><span class="token punctuation">,</span></span>
 <span class="line">    <span class="token property">"meta"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
-<span class="line">        <span class="token property">"total_items"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
-<span class="line">        <span class="token property">"total_pages"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
-<span class="line">        <span class="token property">"current_page"</span><span class="token operator">:</span> <span class="token number">1</span></span>
+<span class="line">        <span class="token property">"totalItems"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">        <span class="token property">"totalPages"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">        <span class="token property">"currentPage"</span><span class="token operator">:</span> <span class="token number">1</span></span>
 <span class="line">    <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>

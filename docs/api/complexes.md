@@ -25,9 +25,9 @@
 
 | Поле | Тип | Описание |
 | :--- | :--- | :--- |
-| `total_items` | `integer` | Общее количество объектов. |
-| `total_pages` | `integer` | Общее количество страниц. |
-| `current_page` | `integer` | Номер текущей страницы. |
+| `totalItems` | `integer` | Общее количество объектов. |
+| `totalPages` | `integer` | Общее количество страниц. |
+| `currentPage` | `integer` | Номер текущей страницы. |
 
 ---
 
@@ -220,8 +220,8 @@
         }
     ],
     "meta": {
-        "total_items": 1,
-        "total_pages": 1,
-        "current_page": 1
+        "totalItems": 1,
+        "totalPages": 1,
+        "currentPage": 1
     }
 }

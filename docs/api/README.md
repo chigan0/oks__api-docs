@@ -25,9 +25,9 @@
     // ... массив с данными ...
   ],
   "meta": {
-    "total_items": 15,
-    "total_pages": 1,
-    "current_page": 1
+    "totalItems": 15,
+    "totalPages": 1,
+    "currentPage": 1
   }
 }
 ```

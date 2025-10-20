@@ -173,9 +173,9 @@
         }
     ],
     "meta": {
-        "total_items": 33,
-        "total_pages": 2,
-        "current_page": 2
+        "totalItems": 33,
+        "totalPages": 2,
+        "currentPage": 2
 		// ... и т.д
     }
 }

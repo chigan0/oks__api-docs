@@ -76,9 +76,9 @@ curl -X GET "https://banking.oks-group.kz/api/v1/service/projects/list" \
     // ... другие проекты
   ],
   "meta":{
-	"total_items": 10,
-	"total_pages": 1,
-	"current_page": 1
+	"totalItems": 10,
+	"totalPages": 1,
+	"currentPage": 1
   }
 }
 ```

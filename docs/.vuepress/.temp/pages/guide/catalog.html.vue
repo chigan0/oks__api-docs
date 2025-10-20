@@ -69,9 +69,9 @@
 <span class="line">    <span class="token comment">// ... другие проекты</span></span>
 <span class="line">  <span class="token punctuation">]</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"meta"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
-<span class="line">    <span class="token property">"total_items"</span><span class="token operator">:</span> <span class="token number">8</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"total_pages"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"current_page"</span><span class="token operator">:</span> <span class="token number">1</span></span>
+<span class="line">    <span class="token property">"totalItems"</span><span class="token operator">:</span> <span class="token number">8</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"totalPages"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"currentPage"</span><span class="token operator">:</span> <span class="token number">1</span></span>
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
@@ -273,9 +273,9 @@
 <span class="line">    <span class="token comment">// ... (другие квартиры)</span></span>
 <span class="line">  <span class="token punctuation">]</span><span class="token punctuation">,</span></span>
 <span class="line">  <span class="token property">"meta"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
-<span class="line">    <span class="token property">"total_items"</span><span class="token operator">:</span> <span class="token number">33</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"total_pages"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></span>
-<span class="line">    <span class="token property">"current_page"</span><span class="token operator">:</span> <span class="token number">2</span></span>
+<span class="line">    <span class="token property">"totalItems"</span><span class="token operator">:</span> <span class="token number">33</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"totalPages"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span></span>
+<span class="line">    <span class="token property">"currentPage"</span><span class="token operator">:</span> <span class="token number">2</span></span>
 <span class="line">  <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span>
 <span class="line"></span></code></pre>
