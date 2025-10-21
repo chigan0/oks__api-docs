@@ -16,7 +16,7 @@
 | `details` | `object` | **(Блок)** Дополнительные технические детали. |
 | `media` | `object` | **(Блок)** Медиа-ссылки: изображения, PDF. |
 | `company` | `object` | **(Блок)** Информация о застройщике и продавце. |
-| `area_breakdown`| `object` | **(Блок)** Детализация площади (кухня, комнаты). |
+| `areaBreakdown`| `object` | **(Блок)** Детализация площади (кухня, комнаты). |
 
 ---
 
@@ -33,6 +33,7 @@
 | `floor` | `integer` | Этаж расположения квартиры. |
 | `totalFloors` | `integer` | Общая этажность дома. |
 | `housingClass` | `string` | Класс жилья (напр., `"comfort"`). |
+| `ceilingHeight` | `float` / `null` | Высота потолков, м. |
 
 ---
 
@@ -73,6 +74,9 @@
 | `planName` | `string` / `null` | Внутреннее/техническое название планировки. |
 | `layoutType` | `string` / `null` | Категория недвижимости (напр., `"apartment"`, `"commercial"`). |
 | `titleByCategory` | `string` / `null` | Заголовок, сгенерированный по категории. |
+| `parkingTypeId` | `integer` / `null` | ID типа парковки. <br> **Доступные значения:** <br> • `1` (Подземная) <br> • `2` (Наземная многоуровневая) <br> • `3` (За шлагбаумом во дворе) <br> • `4` (Открытая во дворе) <br> • `5` (Гараж) <br> • `6` (Охраняемая парковка) <br> • `7` (Надземный паркинг) |
+| `livingHouseMaterialId` | `integer` / `null` | ID материала стен. <br> **Доступные значения:** <br> • `1`: (Кирпич) <br> • `3` (Монолит) <br> • `55` (Монолитно-кирпичный) <br> • `6` (Пенобетон) <br> • `7` (Панель) <br> • `8` (Железобетон) <br> • `9` (Дерево) <br> • `10` (Блочный) <br> • `11` (Сэндвич) <br> • `12` (Пеноблоки) <br> • `13` (Фахверк) <br> • `16` (Сборный железобетон) <br> • `20` (Комбинированный) <br> • `21` (Бетон) <br> • `22` (Монолитно-каркасный) <br> • `23` (Газобетон) <br> • `24` (Несъемная опалубка) <br> • `25` (Шлакоблок) <br> • `100` (Другое) |
+| `buildingType` | `string` / `null` | Тип здания (напр., `"living"`, `"business_center"`, `business_center`, `shopping_center`, `administrative_building`, `other`s). |
 
 ---
 
@@ -97,7 +101,7 @@
 
 ---
 
-### Блок: `area_breakdown`
+### Блок: `areaBreakdown`
 Детализация площади по комнатам (может быть не заполнена).
 
 | Поле | Тип | Описание |
@@ -106,6 +110,8 @@
 | `bathroom` | `float` / `null` | Площадь санузла, м². |
 | `hallway` | `float` / `null` | Площадь коридора/прихожей, м². |
 | `rooms` | `object` | Объект (словарь) с площадями комнат. Ключами являются `area_room_N` (комнаты) и `area_bedroom_N` (спальни). |
+| `areaBtiLiving` | `float` / `null` | Жилая площадь по БТИ, м². |
+| `areaMaxCustom` | `float` / `null` | Кастомная максимальная площадь, м². |
 
 ---
 
@@ -127,7 +133,8 @@
                 "roomCount": 3,
                 "floor": 4,
                 "totalFloors": 5,
-                "housingClass": "comfort"
+                "housingClass": "comfort",
+				"ceilingHeight": 2.7
             },
             "geo": {
                 "entrance": 1,
@@ -149,7 +156,12 @@
                 "planTypeCode": "walls",
                 "planName": "1-1_5-82,31",
                 "layoutType": "apartment",
-                "titleByCategory": "3 комнатная, 82.31 м²"
+                "titleByCategory": "3 комнатная, 82.31 м²",
+				"layoutType": "apartment",
+				"titleByCategory": "3 комнатная, 82.31 м²",
+				"parkingTypeId": 1,
+				"livingHouseMaterialId": 55,
+				"buildingType": "living"
             },
             "media": {
                 "titleImage": "https://api.oks-group.kz/media/layout_images/1-1_5-8231.png",
@@ -160,7 +172,7 @@
                 "companyName": "OKS Development",
                 "sellerName": "ТОО «Asar house»"
             },
-			"area_breakdown": {
+			"areaBreakdown": {
 				"kitchen": 12.5,
 				"bathroom": 4.8,
 				"hallway": 6.2,
@@ -168,7 +180,9 @@
 					"area_room_1": 22.0,
 					"area_bedroom_1": 16.5,
 					"area_bedroom_2": 14.0
-				}
+				},
+				"areaBtiLiving": 52.5,
+				"areaMaxCustom": null
 			}
         }
     ],

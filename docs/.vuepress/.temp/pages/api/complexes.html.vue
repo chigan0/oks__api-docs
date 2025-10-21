@@ -4,7 +4,7 @@
 <p>Возвращает постраничный список всех жилых комплексов.</p>
 <ul>
 <li><strong>Method:</strong> <code v-pre>GET</code></li>
-<li><strong>URL:</strong> <code v-pre>/service/projects/list</code></li>
+<li><strong>URL:</strong> <code v-pre>/service/projects</code></li>
 <li><strong>Authentication:</strong> <code v-pre>Bearer Token</code></li>
 </ul>
 <hr>
@@ -279,6 +279,56 @@
 </tr>
 </tbody>
 </table>
+<h4 id="сводные-характеристики-агрегация-по-планировкам" tabindex="-1"><a class="header-anchor" href="#сводные-характеристики-агрегация-по-планировкам"><span>Сводные характеристики (агрегация по планировкам)</span></a></h4>
+<p>Эти поля содержат сводную информацию, собранную со всех <em>опубликованных</em> планировок, относящихся к данному ЖК.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Поле</th>
+<th style="text-align:left">Тип</th>
+<th style="text-align:left">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code v-pre>ceilingHeightRange</code></td>
+<td style="text-align:left"><code v-pre>object</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Объект, описывающий диапазон высоты потолков (см. структуру ниже).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>uniqueParkingTypes</code></td>
+<td style="text-align:left"><code v-pre>array[integer]</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Массив уникальных ID типов парковок, доступных в проекте. <br> <strong>Доступные значения:</strong> <br> • <code v-pre>1</code> (Подземная) <br> • <code v-pre>2</code> (Наземная многоуровневая) <br> • <code v-pre>3</code> (За шлагбаумом во дворе) <br> • <code v-pre>4</code> (Открытая во дворе) <br> • <code v-pre>5</code> (Гараж) <br> • <code v-pre>6</code> (Охраняемая парковка) <br> • <code v-pre>7</code> (Надземный паркинг)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>uniqueLivingHouseMaterials</code></td>
+<td style="text-align:left"><code v-pre>array[integer]</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Массив уникальных ID материалов стен, используемых в проекте. <br> <strong>Доступные значения:</strong> <br> • <code v-pre>1</code>: (Кирпич) <br> • <code v-pre>3</code> (Монолит) <br> • <code v-pre>55</code> (Монолитно-кирпичный) <br> • <code v-pre>6</code> (Пенобетон) <br> • <code v-pre>7</code> (Панель) <br> • <code v-pre>8</code> (Железобетон) <br> • <code v-pre>9</code> (Дерево) <br> • <code v-pre>10</code> (Блочный) <br> • <code v-pre>11</code> (Сэндвич) <br> • <code v-pre>12</code> (Пеноблоки) <br> • <code v-pre>13</code> (Фахверк) <br> • <code v-pre>16</code> (Сборный железобетон) <br> • <code v-pre>20</code> (Комбинированный) <br> • <code v-pre>21</code> (Бетон) <br> • <code v-pre>22</code> (Монолитно-каркасный) <br> • <code v-pre>23</code> (Газобетон) <br> • <code v-pre>24</code> (Несъемная опалубка) <br> • <code v-pre>25</code> (Шлакоблок) <br> • <code v-pre>100</code> (Другое)</td>
+</tr>
+</tbody>
+</table>
+<h5 id="объект-ceilingheightrange" tabindex="-1"><a class="header-anchor" href="#объект-ceilingheightrange"><span>Объект <code v-pre>ceilingHeightRange</code></span></a></h5>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Поле</th>
+<th style="text-align:left">Тип</th>
+<th style="text-align:left">Описание</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code v-pre>minHeight</code></td>
+<td style="text-align:left"><code v-pre>float</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Минимальная высота потолков, м.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>maxHeight</code></td>
+<td style="text-align:left"><code v-pre>float</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Максимальная высота потолков, м.</td>
+</tr>
+</tbody>
+</table>
 <h4 id="инфраструктура-на-карте" tabindex="-1"><a class="header-anchor" href="#инфраструктура-на-карте"><span>Инфраструктура (на карте)</span></a></h4>
 <table>
 <thead>
@@ -380,6 +430,12 @@
 <span class="line">                <span class="token property">"primaryColor"</span><span class="token operator">:</span> <span class="token string">"#0e3737"</span><span class="token punctuation">,</span></span>
 <span class="line">                <span class="token property">"secondaryColor"</span><span class="token operator">:</span> <span class="token string">"#0e3737"</span></span>
 <span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line">			<span class="token property">"uniqueParkingTypes"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">,</span></span>
+<span class="line">			<span class="token property">"ceilingHeightRange"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">				<span class="token property">"minHeight"</span><span class="token operator">:</span> <span class="token number">2.7</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"maxHeight"</span><span class="token operator">:</span> <span class="token number">3.1</span></span>
+<span class="line">			<span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line">            <span class="token property">"uniqueLivingHouseMaterials"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">55</span><span class="token punctuation">]</span><span class="token punctuation">,</span></span>
 <span class="line">            <span class="token property">"infrastructure"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
 <span class="line">                <span class="token property">"placemarks"</span><span class="token operator">:</span> <span class="token punctuation">[</span></span>
 <span class="line">                    <span class="token punctuation">{</span></span>
@@ -432,6 +488,6 @@
 <span class="line">        <span class="token property">"currentPage"</span><span class="token operator">:</span> <span class="token number">1</span></span>
 <span class="line">    <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
 
 

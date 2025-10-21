@@ -125,7 +125,7 @@ import{_ as o,c as i,b as e,a as n,d as a,e as p,w as l,r as c,o as r}from"./app
 <span class="line">    <span class="token property">&quot;companyName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;OKS Development&quot;</span><span class="token punctuation">,</span></span>
 <span class="line">    <span class="token property">&quot;sellerName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;ТОО «Prime Park»&quot;</span></span>
 <span class="line">  <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">&quot;area_breakdown&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">&quot;areaBreakdown&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
 <span class="line">    <span class="token property">&quot;kitchen&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span></span>
 <span class="line">    <span class="token property">&quot;bathroom&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span></span>
 <span class="line">    <span class="token property">&quot;hallway&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span></span>

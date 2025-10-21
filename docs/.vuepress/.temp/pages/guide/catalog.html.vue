@@ -4,7 +4,7 @@
 <p>Все запросы к каталогу являются <code v-pre>GET</code>-запросами и требуют передачи валидного токена в заголовке <code v-pre>Authorization</code>:</p>
 <p><code v-pre>Authorization: Bearer &lt;ваш_access_token&gt;</code></p>
 <h2 id="получение-списка-жилых-комплексов-жк" tabindex="-1"><a class="header-anchor" href="#получение-списка-жилых-комплексов-жк"><span>Получение списка Жилых Комплексов (ЖК)</span></a></h2>
-<p>Чтобы получить список всех доступных ЖК, выполните запрос к эндпоинту <code v-pre>/service/projects/list</code>. Эндпоинт поддерживает фильтрацию через query-параметры.</p>
+<p>Чтобы получить список всех доступных ЖК, выполните запрос к эндпоинту <code v-pre>/service/projects</code>. Эндпоинт поддерживает фильтрацию через query-параметры.</p>
 <h4 id="параметры-фильтрации-query-params" tabindex="-1"><a class="header-anchor" href="#параметры-фильтрации-query-params"><span>Параметры фильтрации (Query Params)</span></a></h4>
 <table>
 <thead>
@@ -18,7 +18,7 @@
 <tr>
 <td style="text-align:left"><code v-pre>classCode</code></td>
 <td style="text-align:left">string</td>
-<td style="text-align:left">Фильтр по коду класса проекта (например, <code v-pre>business</code>).</td>
+<td style="text-align:left">Фильтр по коду класса проекта. Доступные значения: <code v-pre>economy</code>, <code v-pre>standard</code>, <code v-pre>comfort</code>, <code v-pre>recreation</code>, <code v-pre>business</code>, <code v-pre>premium</code>, <code v-pre>luxury</code>.</td>
 </tr>
 <tr>
 <td style="text-align:left"><code v-pre>isSale</code></td>
@@ -43,7 +43,7 @@
 </tbody>
 </table>
 <h4 id="пример-запроса-с-фильтрациеи" tabindex="-1"><a class="header-anchor" href="#пример-запроса-с-фильтрациеи"><span>Пример запроса (с фильтрацией)</span></a></h4>
-<div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> GET <span class="token string">"https://banking.oks-group.kz/api/v1/service/projects/list?isSale=true&amp;classCode=business"</span> <span class="token punctuation">\</span></span>
+<div class="language-bash line-numbers-mode" data-highlighter="prismjs" data-ext="sh"><pre v-pre><code><span class="line"><span class="token function">curl</span> <span class="token parameter variable">-X</span> GET <span class="token string">"https://banking.oks-group.kz/api/v1/service/projects?isSale=true&amp;classCode=business"</span> <span class="token punctuation">\</span></span>
 <span class="line">     <span class="token parameter variable">-H</span> <span class="token string">"Authorization: Bearer YOUR_ACCESS_TOKEN"</span></span>
 <span class="line"></span></code></pre>
 <div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div></div></div><h4 id="структура-ответа" tabindex="-1"><a class="header-anchor" href="#структура-ответа"><span>Структура ответа</span></a></h4>
@@ -110,7 +110,7 @@
 <li><strong><RouteLink to="/api/complexes.html">Комплексы (Projects)</RouteLink></strong> — Подробный разбор полей и структуры данных ЖК.</li>
 </ul>
 <h2 id="получение-списка-квартир" tabindex="-1"><a class="header-anchor" href="#получение-списка-квартир"><span>Получение списка Квартир</span></a></h2>
-<p>Для получения списка всех квартир во всех ЖК, используйте эндпоинт <code v-pre>/service/projects/layouts</code>. Этот эндпоинт поддерживает гибкую фильтрацию и пагинацию.</p>
+<p>Для получения списка всех квартир во всех ЖК, используйте эндпоинт <code v-pre>/service/projects</code>. Этот эндпоинт поддерживает гибкую фильтрацию и пагинацию.</p>
 <h4 id="параметры-пагинации-query-params" tabindex="-1"><a class="header-anchor" href="#параметры-пагинации-query-params"><span>Параметры пагинации (Query Params)</span></a></h4>
 <table>
 <thead>
@@ -335,7 +335,7 @@
 <span class="line">    <span class="token property">"companyName"</span><span class="token operator">:</span> <span class="token string">"OKS Development"</span><span class="token punctuation">,</span></span>
 <span class="line">    <span class="token property">"sellerName"</span><span class="token operator">:</span> <span class="token string">"ТОО «Prime Park»"</span></span>
 <span class="line">  <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
-<span class="line">  <span class="token property">"area_breakdown"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">  <span class="token property">"areaBreakdown"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
 <span class="line">    <span class="token property">"kitchen"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span></span>
 <span class="line">    <span class="token property">"bathroom"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span></span>
 <span class="line">    <span class="token property">"hallway"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span></span>

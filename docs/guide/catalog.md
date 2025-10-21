@@ -10,13 +10,13 @@
 
 ## Получение списка Жилых Комплексов (ЖК)
 
-Чтобы получить список всех доступных ЖК, выполните запрос к эндпоинту `/service/projects/list`. Эндпоинт поддерживает фильтрацию через query-параметры.
+Чтобы получить список всех доступных ЖК, выполните запрос к эндпоинту `/service/projects`. Эндпоинт поддерживает фильтрацию через query-параметры.
 
 #### Параметры фильтрации (Query Params)
 
 | Параметр | Тип | Описание |
 | :--- | :--- | :--- |
-| `classCode` | string | Фильтр по коду класса проекта (например, `business`). |
+| `classCode` | string | Фильтр по коду класса проекта. Доступные значения: `economy`, `standard`, `comfort`, `recreation`, `business`, `premium`, `luxury`. |
 | `isSale` | boolean | Фильтр по статусу "в продаже". |
 | `isCompleted` | boolean | Фильтр по статусу "завершен". |
 | `hasGuarantee` | boolean | Фильтр по наличию жилищной гарантии. |
@@ -24,7 +24,7 @@
 
 #### Пример запроса (с фильтрацией)
 ```bash
-curl -X GET "https://banking.oks-group.kz/api/v1/service/projects/list?isSale=true&classCode=business" \
+curl -X GET "https://banking.oks-group.kz/api/v1/service/projects?isSale=true&classCode=business" \
      -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
@@ -102,7 +102,7 @@ curl -X GET "https://banking.oks-group.kz/api/v1/service/projects/{project_uuid}
 
 ## Получение списка Квартир
 
-Для получения списка всех квартир во всех ЖК, используйте эндпоинт `/service/projects/layouts`. Этот эндпоинт поддерживает гибкую фильтрацию и пагинацию.
+Для получения списка всех квартир во всех ЖК, используйте эндпоинт `/service/projects`. Этот эндпоинт поддерживает гибкую фильтрацию и пагинацию.
 
 #### Параметры пагинации (Query Params)
 
@@ -237,7 +237,7 @@ curl -X GET "https://banking.oks-group.kz/api/v1/service/projects/layouts/{layou
     "companyName": "OKS Development",
     "sellerName": "ТОО «Prime Park»"
   },
-  "area_breakdown": {
+  "areaBreakdown": {
     "kitchen": null,
     "bathroom": null,
     "hallway": null,

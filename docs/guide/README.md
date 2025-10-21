@@ -48,7 +48,7 @@ curl -X POST "https://banking.oks-group.kz/api/v1/service/token" \
 Теперь, имея токен, вы можете запрашивать данные. Давайте получим список всех жилых комплексов. Для этого нужно отправить `GET`-запрос, передав токен в заголовке `Authorization`.
 
 ```bash
-curl -X GET "https://banking.oks-group.kz/api/v1/service/projects/list" \
+curl -X GET "https://banking.oks-group.kz/api/v1/service/projects" \
      -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 

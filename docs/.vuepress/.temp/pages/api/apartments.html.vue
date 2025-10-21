@@ -52,7 +52,7 @@
 <td style="text-align:left"><strong>(Блок)</strong> Информация о застройщике и продавце.</td>
 </tr>
 <tr>
-<td style="text-align:left"><code v-pre>area_breakdown</code></td>
+<td style="text-align:left"><code v-pre>areaBreakdown</code></td>
 <td style="text-align:left"><code v-pre>object</code></td>
 <td style="text-align:left"><strong>(Блок)</strong> Детализация площади (кухня, комнаты).</td>
 </tr>
@@ -109,6 +109,11 @@
 <td style="text-align:left"><code v-pre>housingClass</code></td>
 <td style="text-align:left"><code v-pre>string</code></td>
 <td style="text-align:left">Класс жилья (напр., <code v-pre>&quot;comfort&quot;</code>).</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>ceilingHeight</code></td>
+<td style="text-align:left"><code v-pre>float</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Высота потолков, м.</td>
 </tr>
 </tbody>
 </table>
@@ -232,6 +237,21 @@
 <td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
 <td style="text-align:left">Заголовок, сгенерированный по категории.</td>
 </tr>
+<tr>
+<td style="text-align:left"><code v-pre>parkingTypeId</code></td>
+<td style="text-align:left"><code v-pre>integer</code> / <code v-pre>null</code></td>
+<td style="text-align:left">ID типа парковки. <br> <strong>Доступные значения:</strong> <br> • <code v-pre>1</code> (Подземная) <br> • <code v-pre>2</code> (Наземная многоуровневая) <br> • <code v-pre>3</code> (За шлагбаумом во дворе) <br> • <code v-pre>4</code> (Открытая во дворе) <br> • <code v-pre>5</code> (Гараж) <br> • <code v-pre>6</code> (Охраняемая парковка) <br> • <code v-pre>7</code> (Надземный паркинг)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>livingHouseMaterialId</code></td>
+<td style="text-align:left"><code v-pre>integer</code> / <code v-pre>null</code></td>
+<td style="text-align:left">ID материала стен. <br> <strong>Доступные значения:</strong> <br> • <code v-pre>1</code>: (Кирпич) <br> • <code v-pre>3</code> (Монолит) <br> • <code v-pre>55</code> (Монолитно-кирпичный) <br> • <code v-pre>6</code> (Пенобетон) <br> • <code v-pre>7</code> (Панель) <br> • <code v-pre>8</code> (Железобетон) <br> • <code v-pre>9</code> (Дерево) <br> • <code v-pre>10</code> (Блочный) <br> • <code v-pre>11</code> (Сэндвич) <br> • <code v-pre>12</code> (Пеноблоки) <br> • <code v-pre>13</code> (Фахверк) <br> • <code v-pre>16</code> (Сборный железобетон) <br> • <code v-pre>20</code> (Комбинированный) <br> • <code v-pre>21</code> (Бетон) <br> • <code v-pre>22</code> (Монолитно-каркасный) <br> • <code v-pre>23</code> (Газобетон) <br> • <code v-pre>24</code> (Несъемная опалубка) <br> • <code v-pre>25</code> (Шлакоблок) <br> • <code v-pre>100</code> (Другое)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>buildingType</code></td>
+<td style="text-align:left"><code v-pre>string</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Тип здания (напр., <code v-pre>&quot;living&quot;</code>, <code v-pre>&quot;business_center&quot;</code>, <code v-pre>business_center</code>, <code v-pre>shopping_center</code>, <code v-pre>administrative_building</code>, <code v-pre>other</code>s).</td>
+</tr>
 </tbody>
 </table>
 <hr>
@@ -288,7 +308,7 @@
 </tbody>
 </table>
 <hr>
-<h3 id="блок-area-breakdown" tabindex="-1"><a class="header-anchor" href="#блок-area-breakdown"><span>Блок: <code v-pre>area_breakdown</code></span></a></h3>
+<h3 id="блок-areabreakdown" tabindex="-1"><a class="header-anchor" href="#блок-areabreakdown"><span>Блок: <code v-pre>areaBreakdown</code></span></a></h3>
 <p>Детализация площади по комнатам (может быть не заполнена).</p>
 <table>
 <thead>
@@ -319,6 +339,16 @@
 <td style="text-align:left"><code v-pre>object</code></td>
 <td style="text-align:left">Объект (словарь) с площадями комнат. Ключами являются <code v-pre>area_room_N</code> (комнаты) и <code v-pre>area_bedroom_N</code> (спальни).</td>
 </tr>
+<tr>
+<td style="text-align:left"><code v-pre>areaBtiLiving</code></td>
+<td style="text-align:left"><code v-pre>float</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Жилая площадь по БТИ, м².</td>
+</tr>
+<tr>
+<td style="text-align:left"><code v-pre>areaMaxCustom</code></td>
+<td style="text-align:left"><code v-pre>float</code> / <code v-pre>null</code></td>
+<td style="text-align:left">Кастомная максимальная площадь, м².</td>
+</tr>
 </tbody>
 </table>
 <hr>
@@ -337,7 +367,8 @@
 <span class="line">                <span class="token property">"roomCount"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span></span>
 <span class="line">                <span class="token property">"floor"</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span></span>
 <span class="line">                <span class="token property">"totalFloors"</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span></span>
-<span class="line">                <span class="token property">"housingClass"</span><span class="token operator">:</span> <span class="token string">"comfort"</span></span>
+<span class="line">                <span class="token property">"housingClass"</span><span class="token operator">:</span> <span class="token string">"comfort"</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"ceilingHeight"</span><span class="token operator">:</span> <span class="token number">2.7</span></span>
 <span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
 <span class="line">            <span class="token property">"geo"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
 <span class="line">                <span class="token property">"entrance"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
@@ -359,7 +390,12 @@
 <span class="line">                <span class="token property">"planTypeCode"</span><span class="token operator">:</span> <span class="token string">"walls"</span><span class="token punctuation">,</span></span>
 <span class="line">                <span class="token property">"planName"</span><span class="token operator">:</span> <span class="token string">"1-1_5-82,31"</span><span class="token punctuation">,</span></span>
 <span class="line">                <span class="token property">"layoutType"</span><span class="token operator">:</span> <span class="token string">"apartment"</span><span class="token punctuation">,</span></span>
-<span class="line">                <span class="token property">"titleByCategory"</span><span class="token operator">:</span> <span class="token string">"3 комнатная, 82.31 м²"</span></span>
+<span class="line">                <span class="token property">"titleByCategory"</span><span class="token operator">:</span> <span class="token string">"3 комнатная, 82.31 м²"</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"layoutType"</span><span class="token operator">:</span> <span class="token string">"apartment"</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"titleByCategory"</span><span class="token operator">:</span> <span class="token string">"3 комнатная, 82.31 м²"</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"parkingTypeId"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"livingHouseMaterialId"</span><span class="token operator">:</span> <span class="token number">55</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"buildingType"</span><span class="token operator">:</span> <span class="token string">"living"</span></span>
 <span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
 <span class="line">            <span class="token property">"media"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
 <span class="line">                <span class="token property">"titleImage"</span><span class="token operator">:</span> <span class="token string">"https://api.oks-group.kz/media/layout_images/1-1_5-8231.png"</span><span class="token punctuation">,</span></span>
@@ -370,7 +406,7 @@
 <span class="line">                <span class="token property">"companyName"</span><span class="token operator">:</span> <span class="token string">"OKS Development"</span><span class="token punctuation">,</span></span>
 <span class="line">                <span class="token property">"sellerName"</span><span class="token operator">:</span> <span class="token string">"ТОО «Asar house»"</span></span>
 <span class="line">            <span class="token punctuation">}</span><span class="token punctuation">,</span></span>
-<span class="line">			<span class="token property">"area_breakdown"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
+<span class="line">			<span class="token property">"areaBreakdown"</span><span class="token operator">:</span> <span class="token punctuation">{</span></span>
 <span class="line">				<span class="token property">"kitchen"</span><span class="token operator">:</span> <span class="token number">12.5</span><span class="token punctuation">,</span></span>
 <span class="line">				<span class="token property">"bathroom"</span><span class="token operator">:</span> <span class="token number">4.8</span><span class="token punctuation">,</span></span>
 <span class="line">				<span class="token property">"hallway"</span><span class="token operator">:</span> <span class="token number">6.2</span><span class="token punctuation">,</span></span>
@@ -378,7 +414,9 @@
 <span class="line">					<span class="token property">"area_room_1"</span><span class="token operator">:</span> <span class="token number">22.0</span><span class="token punctuation">,</span></span>
 <span class="line">					<span class="token property">"area_bedroom_1"</span><span class="token operator">:</span> <span class="token number">16.5</span><span class="token punctuation">,</span></span>
 <span class="line">					<span class="token property">"area_bedroom_2"</span><span class="token operator">:</span> <span class="token number">14.0</span></span>
-<span class="line">				<span class="token punctuation">}</span></span>
+<span class="line">				<span class="token punctuation">}</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"areaBtiLiving"</span><span class="token operator">:</span> <span class="token number">52.5</span><span class="token punctuation">,</span></span>
+<span class="line">				<span class="token property">"areaMaxCustom"</span><span class="token operator">:</span> <span class="token null keyword">null</span></span>
 <span class="line">			<span class="token punctuation">}</span></span>
 <span class="line">        <span class="token punctuation">}</span></span>
 <span class="line">    <span class="token punctuation">]</span><span class="token punctuation">,</span></span>
@@ -389,6 +427,6 @@
 <span class="line">		<span class="token comment">// ... и т.д</span></span>
 <span class="line">    <span class="token punctuation">}</span></span>
 <span class="line"><span class="token punctuation">}</span></span></code></pre>
-<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
+<div class="line-numbers" aria-hidden="true" style="counter-reset:line-number 0"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div></div></template>
 
 
