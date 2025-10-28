@@ -31,7 +31,7 @@ export default defineUserConfig({
 					'/guide/README.md',
 					'/guide/authentication.md',
 					'/guide/catalog.md',
-					// '/guide/booking.md',
+					'/guide/booking.md',
 				],
 				},
 			],

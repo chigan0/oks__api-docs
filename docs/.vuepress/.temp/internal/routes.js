@@ -9,6 +9,7 @@ export const routes = Object.fromEntries([
   ["/guide/authentication.html", { loader: () => import(/* webpackChunkName: "guide_authentication.html" */"/Users/maksimmakarov/projects/oks/oks__api-docs/docs/.vuepress/.temp/pages/guide/authentication.html.js"), meta: {"title":"Аутентификация (OAuth 2.0)"} }],
   ["/guide/catalog.html", { loader: () => import(/* webpackChunkName: "guide_catalog.html" */"/Users/maksimmakarov/projects/oks/oks__api-docs/docs/.vuepress/.temp/pages/guide/catalog.html.js"), meta: {"title":"Работа с каталогом"} }],
   ["/404.html", { loader: () => import(/* webpackChunkName: "404.html" */"/Users/maksimmakarov/projects/oks/oks__api-docs/docs/.vuepress/.temp/pages/404.html.js"), meta: {"title":""} }],
+  ["/guide/booking.html", { loader: () => import(/* webpackChunkName: "guide_booking.html" */"/Users/maksimmakarov/projects/oks/oks__api-docs/docs/.vuepress/.temp/pages/guide/booking.html.js"), meta: {"title":"Бронирования планировки"} }],
 ]);
 
 if (import.meta.webpackHot) {
